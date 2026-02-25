@@ -1,5 +1,7 @@
+require('dotenv').config()
 const cors = require('cors')
 const express = require('express')
+const Person = require('./models/person')
 let morgan = require('morgan')
 morgan.token('body', (req, res) => {return JSON.stringify(req.body)})
 
@@ -47,7 +49,9 @@ app.get('/info', (request, response) => {
 })
 
 app.get('/api/persons', (request, response) => {
-  response.json(persons)
+  Person.find({}).then(result => {
+    response.json(result)
+  })
 })
 
 app.get('/api/persons/:id', (request, response) => {
@@ -95,7 +99,7 @@ app.post('/api/persons', (request, response) => {
     persons = persons.concat(person)
 })
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
