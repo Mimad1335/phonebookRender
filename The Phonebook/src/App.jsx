@@ -144,7 +144,7 @@ const App = () => {
       <Messages.Notification message={newNotification}/>
       <Messages.Error message={newError}/>
       <Filter filt={filt} onFilterChange={onFilterChange}/>
-      <h2>Add a new</h2>
+      <h2>Add a new person</h2>
       <SubmitionForm newName={newName} onNameChange={onNameChange} newNumber={newNumber} onNumberChange={onNumberChange} 
         handleNewNameSubmition={handleNewNameSubmition}/>
       <h2>Numbers</h2>
