@@ -19,13 +19,19 @@ const CloseConnection = () => {mongoose.connection.close()}
 const personSchema = new mongoose.Schema({
   name: {
     type: String,
-    minLength: 2,
+    minLength: 3,
     required: true
   },
   number: {
     type: String,
-    minLength: 2,
-    required: true
+    minLength: 8,
+    validate: {
+      validator: function(num) {
+        return /^\d{2,3}-\d+$/.test(num);
+      },
+      message: props => `${props.value} is not a valid number!`
+    },
+    required: [true, 'Phone number is required']
   },
 })
 

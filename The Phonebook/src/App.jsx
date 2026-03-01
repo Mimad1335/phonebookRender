@@ -131,7 +131,10 @@ const App = () => {
           setNewNumber('')
           setNewNotification(`Added ${pers.name}`)
           setTimeout(() => {setNewNotification(null)}, 5000)
-
+        })
+        .catch(error => {
+          setNewNotification(`${error.response.data.error}`)
+          setTimeout(() => {setNewNotification(null)}, 5000)
         })
     }
   }
