@@ -22,8 +22,8 @@ app.get('/info', (request, response) => {
 
   Person.find({}).then(result => {
     response.send(
-    `<div>
-      <p>Phonebook has info for ${result.length} ${result.length > 1 ? "people" : "person"}.</p>
+      `<div>
+      <p>Phonebook has info for ${result.length} ${result.length > 1 ? 'people' : 'person'}.</p>
       <p>${dateString}</p>
     </div>`)
 
@@ -39,53 +39,44 @@ app.get('/api/persons', (request, response) => {
 app.get('/api/persons/:id', (request, response, next) => {
 
   Person.findById(request.params.id)
-  .then(pers => {
-    if(pers){
-      response.json(pers)
-    }else{
+    .then(pers => {
+      if(pers){
+        response.json(pers)
+      }else{
         response.status(404).end()
-    }
-  })
-  .catch(error => next(error))
+      }
+    })
+    .catch(error => next(error))
 })
 
 app.delete('/api/persons/:id', (request, response, next) => {
 
   Person.findByIdAndDelete(request.params.id)
-  .then( res => {
-    response.status(204).end()
-  })
-  .catch(error => next(error))
+    .then( res => {
+      response.status(204).end()
+    })
+    .catch(error => next(error))
 })
-
-const getId = () => {
-  const id = Math.floor(Math.random() * 10000)
-  return String(id) 
-}
 
 app.post('/api/persons', (request, response, next) => {
   const body = request.body
 
-  /*if(!body.name || !body.number){
-    return response.status(400).json({error: "name or number is missing"})
-  }*/
-
   Person.find({}).then(result => {
     if(result.map(p => p.name.toLocaleLowerCase()).find(nm => nm === body.name.toLocaleLowerCase())){
-      return response.status(404).json({error: "name must be unique"})
+      return response.status(404).json({ error: 'name must be unique' })
     }
   })
 
   const person = new Person({
-      name: body.name,
-      number: body.number,
-      //id: getId(),
+    name: body.name,
+    number: body.number,
+    //id: getId(),
   })
 
   person.save().then(newPerson => {
     response.json(newPerson)
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
@@ -124,7 +115,7 @@ const errorHandler = (error, request, response, next) => {
   }
 
   next(error)
-} 
+}
 
 // this has to be the last loaded middleware, also all the routes should be registered before this!
 app.use(errorHandler)

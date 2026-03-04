@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-const dns = require("dns"); 
-dns.setServers(["1.1.1.1", "8.8.8.8"]);
+const dns = require('dns') 
+dns.setServers(['1.1.1.1', '8.8.8.8'])
 
 const args = process.argv
 
@@ -39,7 +39,7 @@ if(args.length === 5){
 
 }else if(args.length === 3){
   Person.find({}).then(result => {
-    console.log("phonebook:")
+    console.log('phonebook:')
     result.forEach(person => {
       console.log(`${person.name} ${person.number}`)
     })
@@ -47,7 +47,7 @@ if(args.length === 5){
   })
 
 }else{
-  console.log("missing name or number")
+  console.log('missing name or number')
   CloseConnection()
 }
 

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
-const dns = require("dns"); 
-dns.setServers(["1.1.1.1", "8.8.8.8"]);
+const dns = require('dns') 
+dns.setServers(['1.1.1.1', '8.8.8.8'])
 
 const url = process.env.MONGODB_URI
 
@@ -14,8 +14,6 @@ mongoose.connect(url, { family: 4 })
     console.log('error connecting to MongoDB:', error.message)
   })
 
-const CloseConnection = () => {mongoose.connection.close()}
-
 const personSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -27,7 +25,7 @@ const personSchema = new mongoose.Schema({
     minLength: 8,
     validate: {
       validator: function(num) {
-        return /^\d{2,3}-\d+$/.test(num);
+        return /^\d{2,3}-\d+$/.test(num)
       },
       message: props => `${props.value} is not a valid number!`
     },
